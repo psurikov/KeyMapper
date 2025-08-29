@@ -1,0 +1,395 @@
+﻿<Application
+    x:Class="KeyMapper.App"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:local="clr-namespace:KeyMapper"
+    xmlns:controls="clr-namespace:KeyMapper.Controls"
+    xmlns:converters="clr-namespace:KeyMapper.Converters"
+    xmlns:behaviors="clr-namespace:KeyMapper.Behaviors"
+    StartupUri="Views/MainWindow.xaml">
+    <Application.Resources>
+
+        <SolidColorBrush x:Key="FontBrush">White</SolidColorBrush>
+        <SolidColorBrush x:Key="WindowBackground">#1e1e1e</SolidColorBrush>
+        <SolidColorBrush x:Key="ControlBackground">#2d2d30</SolidColorBrush>
+        <SolidColorBrush x:Key="ControlBorder">#3e3e42</SolidColorBrush>
+
+        <converters:LastItemVisibilityConverter x:Key="LastItemVisibility"/>
+
+        <Style x:Key="TitleStyle" TargetType="TextBlock">
+            <Setter Property="FontFamily" Value="Calibri"/>
+            <Setter Property="FontSize" Value="24"/>
+        </Style>
+
+        <Style x:Key="TriangleThumbStyle" TargetType="Thumb">
+            <Setter Property="Width" Value="12"/>
+            <Setter Property="Height" Value="12"/>
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Thumb">
+                        <Grid>
+                            <Polygon Points="0,12 12,12 12,0" Fill="Gray" Opacity="0.6"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SimpleButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#3C3C3C"/>
+            <Setter Property="Foreground" Value="#E0E0E0"/>
+            <Setter Property="Padding" Value="10,3"/>
+            <Setter Property="Margin" Value="4"/>
+            <Setter Property="BorderBrush" Value="#555"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="1"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}"
+                            Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#505050"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#2A2A2A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="ToolButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="#30505050"/>
+            <Setter Property="BorderBrush" Value="Transparent"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Grid>
+                            <Border Background="Gray"></Border>
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
+                            <Border
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                Padding="{TemplateBinding Padding}"
+                                CornerRadius="0">
+                            </Border>
+                        </Grid>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="BorderBrush" Value="LightBlue"/>
+                                <Setter Property="Background" Value="#00505050"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="BorderBrush" Value="Blue"/>
+                                <Setter Property="Background" Value="#102A2A2A"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="TitleButtonStyle" TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="FontSize" Value="14"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            CornerRadius="1"
+                            Padding="5">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background" Value="#33FFFFFF"/>
+                            </Trigger>
+                            <Trigger Property="IsPressed" Value="True">
+                                <Setter Property="Background" Value="#55FFFFFF"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="SectionHeaderedContentStyle" TargetType="{x:Type HeaderedContentControl}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type HeaderedContentControl}">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <ContentPresenter Grid.Row="0" ContentSource="Header" Margin="0,0,0,18"/>
+                            <ContentPresenter Grid.Row="1" ContentSource="Content"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="Window" x:Key="WindowStyle">
+            <Setter Property="AllowsTransparency" Value="True"/>
+            <Setter Property="Foreground" Value="{StaticResource FontBrush}"/>
+            <Setter Property="Background" Value="{StaticResource WindowBackground}"/>
+            <Setter Property="WindowStyle" Value="None"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Window">
+                        <Border
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="#444"
+                            BorderThickness="1"
+                            CornerRadius="1"
+                            SnapsToDevicePixels="True">
+                            <Grid Background="Transparent">
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="30"/>
+                                    <RowDefinition Height="*"/>
+                                </Grid.RowDefinitions>
+                                <b:Interaction.Behaviors>
+                                    <behaviors:WindowDragBehavior/>
+                                </b:Interaction.Behaviors>
+                                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                                    <Button Content="—" Width="40" Height="30" Style="{StaticResource TitleButtonStyle}">
+                                        <b:Interaction.Behaviors>
+                                            <behaviors:WindowCommandBehavior Action="Minimize"/>
+                                        </b:Interaction.Behaviors>
+                                    </Button>
+                                    <Button Content="❐" Width="40" Height="30" Style="{StaticResource TitleButtonStyle}">
+                                        <b:Interaction.Behaviors>
+                                            <behaviors:WindowCommandBehavior Action="MaximizeRestore"/>
+                                        </b:Interaction.Behaviors>
+                                    </Button>
+                                    <Button Content="X"  Width="40" Height="30" Style="{StaticResource TitleButtonStyle}">
+                                        <b:Interaction.Behaviors>
+                                            <behaviors:WindowCommandBehavior Action="Close"/>
+                                        </b:Interaction.Behaviors>
+                                    </Button>
+                                </StackPanel>
+                                <AdornerDecorator Grid.Row="1" Grid.Column="0" Margin="15">
+                                    <ContentPresenter/>
+                                </AdornerDecorator>
+                                <Thumb Grid.Row="1" Grid.Column="0" Width="10" Height="10" VerticalAlignment="Bottom" HorizontalAlignment="Right" Cursor="SizeNWSE" Style="{StaticResource TriangleThumbStyle}">
+                                    <b:Interaction.Behaviors>
+                                        <behaviors:WindowResizeBehavior Direction="BottomRight"/>
+                                    </b:Interaction.Behaviors>
+                                </Thumb>
+                            </Grid>
+                        </Border>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="controls:KeyComboTag">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:KeyComboTag">
+                        <TextBlock Text="{Binding KeyCombo, RelativeSource={RelativeSource TemplatedParent}}"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style TargetType="controls:KeyComboSeriesBox">
+            <Setter Property="Background" Value="{StaticResource ControlBackground}"/>
+            <Setter Property="BorderBrush" Value="{StaticResource ControlBorder}"/>
+            <Setter Property="BorderThickness" Value="1"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="controls:KeyComboSeriesBox">
+                        <Border
+                            x:Name="border"
+                            Background="{TemplateBinding Background}"
+                            BorderBrush="{TemplateBinding BorderBrush}"
+                            BorderThickness="{TemplateBinding BorderThickness}">
+                            <Grid Margin="3">
+                                <TextBlock Text="." Visibility="Hidden"/>
+                                <StackPanel Orientation="Horizontal">
+                                    <ItemsControl ItemsSource="{TemplateBinding KeyCombos}" Focusable="False" AlternationCount="100">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel Orientation="Horizontal"/>
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                        <ItemsControl.ItemTemplate>
+                                            <DataTemplate>
+                                                <StackPanel Orientation="Horizontal">
+                                                    <TextBlock Text="{Binding}" VerticalAlignment="Center"/>
+                                                    <Polygon Points="0,0 0,8 6,4" Fill="White" Margin="5,0,5,0" VerticalAlignment="Center">
+                                                        <Polygon.Visibility>
+                                                            <MultiBinding Converter="{StaticResource LastItemVisibility}">
+                                                                <Binding Path="(ItemsControl.AlternationIndex)" RelativeSource="{RelativeSource TemplatedParent}"/>
+                                                                <Binding Path="Items.Count" RelativeSource="{RelativeSource AncestorType=ItemsControl}"/>
+                                                            </MultiBinding>
+                                                        </Polygon.Visibility>
+                                                    </Polygon>
+                                                </StackPanel>
+                                            </DataTemplate>
+                                        </ItemsControl.ItemTemplate>
+                                    </ItemsControl>
+                                    <Rectangle x:Name="caret" Width="1" Fill="White" Visibility="Collapsed" VerticalAlignment="Stretch"/>
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsFocused" Value="True">
+                                <Setter TargetName="border" Property="BorderBrush" Value="DodgerBlue"/>
+                                <Setter TargetName="caret" Property="Visibility" Value="Visible"/>
+                                <Trigger.EnterActions>
+                                    <BeginStoryboard x:Name="CaretBlinkStoryboard">
+                                        <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                            <DoubleAnimation
+                                                Storyboard.TargetName="caret"
+                                                Storyboard.TargetProperty="Opacity"
+                                                From="1" To="0"
+                                                Duration="0:0:0.5"/>
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </Trigger.EnterActions>
+                                <Trigger.ExitActions>
+                                    <StopStoryboard BeginStoryboardName="CaretBlinkStoryboard"/>
+                                </Trigger.ExitActions>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <DrawingImage x:Key="CreateIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <!-- Drop shadow effect -->
+                    <GeometryDrawing Brush="#66000000">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Rounded background -->
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="4,0,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Plus sign -->
+                    <GeometryDrawing Brush="#444">
+                        <GeometryDrawing.Geometry>
+                            <CombinedGeometry GeometryCombineMode="Union">
+                                <CombinedGeometry.Geometry1>
+                                    <RectangleGeometry Rect="20,6,4,24"/>
+                                </CombinedGeometry.Geometry1>
+                                <CombinedGeometry.Geometry2>
+                                    <RectangleGeometry Rect="10,16,24,4"/>
+                                </CombinedGeometry.Geometry2>
+                            </CombinedGeometry>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="DeleteIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <!-- Drop shadow effect -->
+                    <GeometryDrawing Brush="#66000000">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Rounded background -->
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="4,0,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- X sign -->
+                    <GeometryDrawing Brush="#C33">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup FillRule="Nonzero">
+                                <!-- Diagonal from top-left to bottom-right -->
+                                <RectangleGeometry Rect="18,6,4,24">
+                                    <RectangleGeometry.Transform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="45" CenterX="20" CenterY="18"/>
+                                            <TranslateTransform X="2" Y="0"/>
+                                        </TransformGroup>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                                <!-- Diagonal from top-right to bottom-left -->
+                                <RectangleGeometry Rect="18,6,4,24">
+                                    <RectangleGeometry.Transform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="-45" CenterX="20" CenterY="18"/>
+                                            <TranslateTransform X="2" Y="0"/>
+                                        </TransformGroup>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="ArrowUpIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <!-- Drop shadow -->
+                    <GeometryDrawing Brush="#66000000">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Rounded background -->
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="4,0,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Arrow up (shaft + chevron tip) -->
+                    <GeometryDrawing Brush="#444">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup FillRule="Nonzero">
+                                <!-- Shaft -->
+                                <RectangleGeometry Rect="20,14,4,14"/>
+                                <!-- Left tip line -->
+                                <RectangleGeometry Rect="0,0,4,16">
+                                    <RectangleGeometry.Transform>
+                                        <RotateTransform Angle="-45" CenterX="20" CenterY="14"/>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                                <!-- Right tip line -->
+                                <RectangleGeometry Rect="0,0,4,16">
+                                    <RectangleGeometry.Transform>
+                                        <RotateTransform Angle="45" CenterX="24" CenterY="14"/>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+    </Application.Resources>
+</Application>

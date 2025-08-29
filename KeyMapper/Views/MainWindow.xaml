@@ -1,0 +1,110 @@
+﻿<Window
+    x:Class="KeyMapper.Views.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:b="http://schemas.microsoft.com/xaml/behaviors"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:local="clr-namespace:KeyMapper"
+    xmlns:behaviors="clr-namespace:KeyMapper.Behaviors"
+    xmlns:controls="clr-namespace:KeyMapper.Controls"
+    xmlns:views="clr-namespace:KeyMapper.Views"
+    mc:Ignorable="d"
+    Title="MainWindow" Height="450" Width="800"
+    Style="{StaticResource WindowStyle}"
+    x:Name="MainControl">
+    <b:Interaction.Behaviors>
+        <behaviors:WindowStartupLocationBehavior Storage="{Binding WindowStartupLocationStorage, ElementName=MainControl}"/>
+    </b:Interaction.Behaviors>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
+        <HeaderedContentControl Grid.Column="0" Style="{StaticResource SectionHeaderedContentStyle}">
+            <HeaderedContentControl.Header>
+                <TextBlock Text="Profiles" Style="{StaticResource TitleStyle}"/>
+            </HeaderedContentControl.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Command="{Binding CreateProfileCommand}" Style="{StaticResource ToolButtonStyle}">
+                        <Image Source="{StaticResource CreateIconImage}"/>
+                    </Button>
+                    <Button Command="{Binding RemoveProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
+                        <Image Source="{StaticResource DeleteIconImage}"/>
+                    </Button>
+                    <Button Content="Rename" Command="{Binding ModifyProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
+                        
+                    </Button>
+                    <Button Command="{Binding MoveUpProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
+                        <Image Source="{StaticResource ArrowUpIconImage}"/>
+                    </Button>
+                    <Button Content="Down" Command="{Binding MoveDownProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}"/>
+                </StackPanel>
+                <ListBox Grid.Row="1" ItemsSource="{Binding Profiles}" SelectedItem="{Binding SelectedProfile}" HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <Grid>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="Auto"/>
+                                </Grid.ColumnDefinitions>
+                                <TextBlock Text="{Binding Name}" Grid.Row="0" Grid.Column="0" VerticalAlignment="Center"/>
+                                <CheckBox IsChecked="{Binding IsEnabled}" Grid.Row="0" Grid.Column="2" VerticalAlignment="Center"/>
+                            </Grid>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </HeaderedContentControl>
+        <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="10,0,10,0"/>
+        <HeaderedContentControl Grid.Column="2" Style="{StaticResource SectionHeaderedContentStyle}">
+            <HeaderedContentControl.Header>
+                <TextBlock Text="Key Mappings" Style="{StaticResource TitleStyle}"/>
+            </HeaderedContentControl.Header>
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
+                <StackPanel Orientation="Horizontal">
+                    <Button Content="Add Mapping" Command="{Binding SelectedProfile.CreateMappingCommand}"/>
+                    <Button Content="Remove Mapping" Command="{Binding SelectedProfile.RemoveMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
+                    <Button Content="Edit Mapping" Command="{Binding SelectedProfile.ModifyMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
+                    <Button Content="Move Up" Command="{Binding SelectedProfile.MoveUpMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
+                    <Button Content="Move Down" Command="{Binding SelectedProfile.MoveDownMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
+                </StackPanel>
+                <ListBox Grid.Row="1" 
+                    ItemsSource="{Binding SelectedProfile.KeyMappings}"
+                    SelectedItem="{Binding SelectedProfile.SelectedKeyMapping}"
+                    HorizontalContentAlignment="Stretch">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <views:KeyMappingView Background="LightYellow"/>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </Grid>
+        </HeaderedContentControl>
+        <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+            <TextBlock Text="Pressed Keys:" Margin="5"/>
+            <ItemsControl ItemsSource="{Binding PressedKeys}">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <TextBlock Text="{Binding}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
+        </StackPanel>
+    </Grid>
+</Window>

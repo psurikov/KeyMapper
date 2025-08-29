@@ -1,0 +1,46 @@
+﻿<Window
+    x:Class="KeyMapper.Views.KeyMappingDialog"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:controls="clr-namespace:KeyMapper.Controls"
+    xmlns:views="clr-namespace:KeyMapper.Views"
+    mc:Ignorable="d"
+    Title="KeyMappingDialog"
+    ResizeMode="NoResize"
+    WindowStartupLocation="CenterOwner"
+    UseLayoutRounding="True"
+    Height="250"
+    Width="400"
+    Name="MainControl"
+    Style="{StaticResource WindowStyle}"
+    FocusManager.FocusedElement="{Binding ElementName=SourceKeyComboSeries}">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <TextBlock Text="Map an input key combination to another key combination."
+            FontSize="14"
+            FontWeight="Bold"
+            Margin="0,0,0,16"
+            TextWrapping="Wrap"
+            Grid.Row="0"/>
+        <StackPanel Grid.Row="1">
+            <TextBlock Text="Input Key Combination:"/>
+            <controls:KeyComboSeriesBox KeyCombos="{Binding ModifiedKeyMapping.Source.KeyCombos, ElementName=MainControl}" x:Name="SourceKeyComboSeries"/>
+        </StackPanel>
+        <StackPanel Grid.Row="2">
+            <TextBlock Text="Mapped To:"/>
+            <controls:KeyComboSeriesBox KeyCombos="{Binding ModifiedKeyMapping.Target.KeyCombos, ElementName=MainControl}" KeyCombosMax="5"/>
+        </StackPanel>
+        <StackPanel Grid.Row="4" Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button Content="OK" IsDefault="True" Style="{StaticResource SimpleButtonStyle}" Click="AcceptClick"/>
+            <Button Content="Cancel" IsCancel="True" Style="{StaticResource SimpleButtonStyle}" Click="CancelClick"/>
+        </StackPanel>
+    </Grid>
+</Window>
