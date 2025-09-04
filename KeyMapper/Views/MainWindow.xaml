@@ -36,19 +36,11 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <Button Command="{Binding CreateProfileCommand}" Style="{StaticResource ToolButtonStyle}">
-                        <Image Source="{StaticResource CreateIconImage}"/>
-                    </Button>
-                    <Button Command="{Binding RemoveProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
-                        <Image Source="{StaticResource DeleteIconImage}"/>
-                    </Button>
-                    <Button Content="Rename" Command="{Binding ModifyProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
-                        
-                    </Button>
-                    <Button Command="{Binding MoveUpProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}">
-                        <Image Source="{StaticResource ArrowUpIconImage}"/>
-                    </Button>
-                    <Button Content="Down" Command="{Binding MoveDownProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource ToolButtonStyle}"/>
+                    <Button Command="{Binding CreateProfileCommand}" Style="{StaticResource CreateButtonStyle}"/>
+                    <Button Command="{Binding RemoveProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource DeleteButtonStyle}"/>
+                    <Button Command="{Binding ModifyProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource EditButtonStyle}"/>
+                    <Button Command="{Binding MoveUpProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource MoveUpButtonStyle}"/>
+                    <Button Command="{Binding MoveDownProfileCommand}" CommandParameter="{Binding SelectedProfile}" Style="{StaticResource MoveDownButtonStyle}"/>
                 </StackPanel>
                 <ListBox Grid.Row="1" ItemsSource="{Binding Profiles}" SelectedItem="{Binding SelectedProfile}" HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
@@ -67,7 +59,7 @@
                 </ListBox>
             </Grid>
         </HeaderedContentControl>
-        <GridSplitter Grid.Column="1" Width="3" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="10,0,10,0"/>
+        <GridSplitter Grid.Column="1" Width="2" HorizontalAlignment="Center" VerticalAlignment="Stretch" Margin="10,0,10,0"/>
         <HeaderedContentControl Grid.Column="2" Style="{StaticResource SectionHeaderedContentStyle}">
             <HeaderedContentControl.Header>
                 <TextBlock Text="Key Mappings" Style="{StaticResource TitleStyle}"/>
@@ -78,11 +70,11 @@
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
                 <StackPanel Orientation="Horizontal">
-                    <Button Content="Add Mapping" Command="{Binding SelectedProfile.CreateMappingCommand}"/>
-                    <Button Content="Remove Mapping" Command="{Binding SelectedProfile.RemoveMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
-                    <Button Content="Edit Mapping" Command="{Binding SelectedProfile.ModifyMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
-                    <Button Content="Move Up" Command="{Binding SelectedProfile.MoveUpMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
-                    <Button Content="Move Down" Command="{Binding SelectedProfile.MoveDownMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}"/>
+                    <Button Command="{Binding SelectedProfile.CreateMappingCommand}" Style="{StaticResource CreateButtonStyle}"/>
+                    <Button Command="{Binding SelectedProfile.RemoveMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}" Style="{StaticResource DeleteButtonStyle}"/>
+                    <Button Command="{Binding SelectedProfile.ModifyMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}" Style="{StaticResource EditButtonStyle}"/>
+                    <Button Command="{Binding SelectedProfile.MoveUpMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}" Style="{StaticResource MoveUpButtonStyle}"/>
+                    <Button Command="{Binding SelectedProfile.MoveDownMappingCommand}" CommandParameter="{Binding SelectedProfile.SelectedKeyMapping}" Style="{StaticResource MoveDownButtonStyle}"/>
                 </StackPanel>
                 <ListBox Grid.Row="1" 
                     ItemsSource="{Binding SelectedProfile.KeyMappings}"

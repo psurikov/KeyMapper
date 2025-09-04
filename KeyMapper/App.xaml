@@ -135,7 +135,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Button">
                         <Grid>
-                            <Border Background="Gray"></Border>
                             <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" Margin="1"/>
                             <Border
                                 Background="{TemplateBinding Background}"
@@ -202,6 +201,10 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+        </Style>
+
+        <Style TargetType="GridSplitter">
+            <Setter Property="Background" Value="#404040"/>
         </Style>
 
         <Style TargetType="Window" x:Key="WindowStyle">
@@ -338,7 +341,7 @@
             <DrawingImage.Drawing>
                 <DrawingGroup>
                     <!-- Drop shadow effect -->
-                    <GeometryDrawing Brush="#66000000">
+                    <GeometryDrawing Brush="#494949">
                         <GeometryDrawing.Geometry>
                             <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
                         </GeometryDrawing.Geometry>
@@ -370,7 +373,7 @@
             <DrawingImage.Drawing>
                 <DrawingGroup>
                     <!-- Drop shadow effect -->
-                    <GeometryDrawing Brush="#66000000">
+                    <GeometryDrawing Brush="#494949">
                         <GeometryDrawing.Geometry>
                             <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
                         </GeometryDrawing.Geometry>
@@ -414,7 +417,7 @@
             <DrawingImage.Drawing>
                 <DrawingGroup>
                     <!-- Drop shadow -->
-                    <GeometryDrawing Brush="#66000000">
+                    <GeometryDrawing Brush="#494949">
                         <GeometryDrawing.Geometry>
                             <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
                         </GeometryDrawing.Geometry>
@@ -430,17 +433,23 @@
                         <GeometryDrawing.Geometry>
                             <GeometryGroup FillRule="Nonzero">
                                 <!-- Shaft -->
-                                <RectangleGeometry Rect="20,14,4,14"/>
+                                <RectangleGeometry Rect="20,12,4,17"/>
                                 <!-- Left tip line -->
                                 <RectangleGeometry Rect="0,0,4,16">
                                     <RectangleGeometry.Transform>
-                                        <RotateTransform Angle="-45" CenterX="20" CenterY="14"/>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="-45" CenterX="2" CenterY="2"/>
+                                            <TranslateTransform X="20" Y="8"/>
+                                        </TransformGroup>
                                     </RectangleGeometry.Transform>
                                 </RectangleGeometry>
                                 <!-- Right tip line -->
                                 <RectangleGeometry Rect="0,0,4,16">
                                     <RectangleGeometry.Transform>
-                                        <RotateTransform Angle="45" CenterX="24" CenterY="14"/>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="45" CenterX="2" CenterY="2"/>
+                                            <TranslateTransform X="20" Y="8"/>
+                                        </TransformGroup>
                                     </RectangleGeometry.Transform>
                                 </RectangleGeometry>
                             </GeometryGroup>
@@ -449,6 +458,150 @@
                 </DrawingGroup>
             </DrawingImage.Drawing>
         </DrawingImage>
+
+        <DrawingImage x:Key="ArrowDownIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <!-- Drop shadow -->
+                    <GeometryDrawing Brush="#494949">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Rounded background -->
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="4,0,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Arrow up (shaft + chevron tip) -->
+                    <GeometryDrawing Brush="#444">
+                        <GeometryDrawing.Geometry>
+                            <GeometryGroup FillRule="Nonzero">
+                                <!-- Shaft -->
+                                <RectangleGeometry Rect="20,8,4,17"/>
+                                <!-- Left tip line -->
+                                <RectangleGeometry Rect="0,0,4,16">
+                                    <RectangleGeometry.Transform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="45" CenterX="2" CenterY="14"/>
+                                            <TranslateTransform X="20" Y="12"/>
+                                        </TransformGroup>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                                <!-- Right tip line -->
+                                <RectangleGeometry Rect="0,0,4,16">
+                                    <RectangleGeometry.Transform>
+                                        <TransformGroup>
+                                            <RotateTransform Angle="-45" CenterX="2" CenterY="14"/>
+                                            <TranslateTransform X="20" Y="12"/>
+                                        </TransformGroup>
+                                    </RectangleGeometry.Transform>
+                                </RectangleGeometry>
+                            </GeometryGroup>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <DrawingImage x:Key="EditIconImage">
+            <DrawingImage.Drawing>
+                <DrawingGroup>
+                    <!-- Drop shadow -->
+                    <GeometryDrawing Brush="#494949">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="0,4,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Rounded background -->
+                    <GeometryDrawing Brush="White">
+                        <GeometryDrawing.Geometry>
+                            <RectangleGeometry RadiusX="6" RadiusY="6" Rect="4,0,36,36"/>
+                        </GeometryDrawing.Geometry>
+                    </GeometryDrawing>
+                    <!-- Pencil symbol -->
+                    <DrawingGroup>
+                        <!-- Rotate the whole pencil -->
+                        <DrawingGroup.Transform>
+                            <TransformGroup>
+                                <RotateTransform Angle="-45" CenterX="20" CenterY="20"/>
+                                <TranslateTransform X="18" Y="8"/>
+                            </TransformGroup>
+                        </DrawingGroup.Transform>
+                        <!-- Pencil body -->
+                        <GeometryDrawing Brush="#444">
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="4,0,23,4"/>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <!-- Pencil tip -->
+                        <GeometryDrawing Brush="#F4A460">
+                            <!-- brownish tip -->
+                            <GeometryDrawing.Geometry>
+                                <PathGeometry Figures="M 0,2 L 4,0 L 4,4 Z"/>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                        <!-- Pencil eraser -->
+                        <GeometryDrawing Brush="MediumOrchid">
+                            <GeometryDrawing.Geometry>
+                                <RectangleGeometry Rect="27,0,3,4"/>
+                            </GeometryDrawing.Geometry>
+                        </GeometryDrawing>
+                    </DrawingGroup>
+                </DrawingGroup>
+            </DrawingImage.Drawing>
+        </DrawingImage>
+
+        <Style x:Key="CreateButtonStyle" BasedOn="{StaticResource ToolButtonStyle}" TargetType="Button">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{DynamicResource CreateIconImage}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="DeleteButtonStyle" BasedOn="{StaticResource ToolButtonStyle}" TargetType="Button">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{DynamicResource DeleteIconImage}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="EditButtonStyle" BasedOn="{StaticResource ToolButtonStyle}" TargetType="Button">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{DynamicResource EditIconImage}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MoveUpButtonStyle" BasedOn="{StaticResource ToolButtonStyle}" TargetType="Button">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{DynamicResource ArrowUpIconImage}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+
+        <Style x:Key="MoveDownButtonStyle" BasedOn="{StaticResource ToolButtonStyle}" TargetType="Button">
+            <Setter Property="ContentTemplate">
+                <Setter.Value>
+                    <DataTemplate>
+                        <Image Source="{DynamicResource ArrowDownIconImage}"/>
+                    </DataTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
 
     </Application.Resources>
 </Application>
