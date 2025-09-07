@@ -17,7 +17,7 @@
             </Grid.ColumnDefinitions>
             <views:KeyComboSeriesView Grid.Column="0" DataContext="{Binding Source}" HorizontalAlignment="Right"/>
             <Label Grid.Column="1">------></Label>
-            <views:KeyComboSeriesView Grid.Column="2" DataContext="{Binding Target}" MinWidth="10"/>
+            <views:KeyComboSeriesView Grid.Column="2" DataContext="{Binding Target}" HorizontalAlignment="Left" />
         </Grid>
         <StackPanel x:Name="ButtonPanel" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Top">
             <StackPanel.Style>

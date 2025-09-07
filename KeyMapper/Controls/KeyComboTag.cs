@@ -5,6 +5,13 @@ namespace KeyMapper.Controls
 {
     public class KeyComboTag : System.Windows.Controls.Control
     {
+        static KeyComboTag()
+        {
+            DefaultStyleKeyProperty.OverrideMetadata(
+                typeof(KeyComboTag),
+                new FrameworkPropertyMetadata(typeof(KeyComboTag)));
+        }
+
         public static readonly DependencyProperty KeyComboProperty =
             DependencyProperty.Register(
                 nameof(KeyCombo),

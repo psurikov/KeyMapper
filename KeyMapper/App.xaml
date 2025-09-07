@@ -265,7 +265,28 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="controls:KeyComboTag">
-                        <TextBlock Text="{Binding KeyCombo, RelativeSource={RelativeSource TemplatedParent}}"/>
+                        <Border BorderThickness="1" CornerRadius="3">
+                            <Border.BorderBrush>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#888" Offset="0"/>
+                                        <GradientStop Color="#444" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.BorderBrush>
+                            <Border.Background>
+                                <LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+                                    <LinearGradientBrush.GradientStops>
+                                        <GradientStop Color="#555" Offset="0"/>
+                                        <GradientStop Color="#222" Offset="1"/>
+                                    </LinearGradientBrush.GradientStops>
+                                </LinearGradientBrush>
+                            </Border.Background>
+                            <TextBlock Text="{Binding KeyCombo, RelativeSource={RelativeSource TemplatedParent}}" Margin="5"/>
+                            <Border.Effect>
+                                <DropShadowEffect Color="Black" BlurRadius="3" ShadowDepth="3" Opacity="0.3"/>
+                            </Border.Effect>
+                        </Border>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>

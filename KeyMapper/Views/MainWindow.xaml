@@ -82,7 +82,7 @@
                     HorizontalContentAlignment="Stretch">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <views:KeyMappingView Background="LightYellow"/>
+                            <views:KeyMappingView/>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
