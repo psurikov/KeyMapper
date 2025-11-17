@@ -1,10 +1,8 @@
 version: 2.1
 
 jobs:
-  build_and_test:
-    machine:
-      enabled: true
-      image: windows-server-2022-vs2022:stable
+  build:
+    executor: windows/default
     steps:
       - checkout
       - run:
