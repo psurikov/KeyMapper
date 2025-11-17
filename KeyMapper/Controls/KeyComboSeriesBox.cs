@@ -48,7 +48,9 @@ namespace KeyMapper.Controls
 
         private void KeyComboSeriesBox_PreviewKeyDown(object sender, System.Windows.Input.KeyEventArgs e)
         {
-            if (e.Key == Key.LeftCtrl ||
+            if (e.SystemKey == Key.LeftAlt ||
+                e.SystemKey == Key.RightAlt ||
+                e.Key == Key.LeftCtrl ||
                 e.Key == Key.RightCtrl ||
                 e.Key == Key.LeftShift ||
                 e.Key == Key.RightShift ||
@@ -68,7 +70,7 @@ namespace KeyMapper.Controls
             else
             {
                 var modifierKeys = Keyboard.Modifiers;
-                var actionKey = e.Key;
+                var actionKey = e.Key == Key.System ? e.SystemKey : e.Key;
                 var keyCombo = new KeyCombo(modifierKeys, actionKey);
                 if (keyCombos.Count < KeyCombosMax)
                     keyCombos.Add(keyCombo);
