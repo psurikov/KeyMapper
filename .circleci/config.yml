@@ -3,6 +3,7 @@ version: 2.1
 jobs:
   build_and_test:
     machine:
+      enabled: true
       image: windows-server-2022-vs2022:stable
     steps:
       - checkout
@@ -11,15 +12,9 @@ jobs:
           command: |
             choco install dotnet-sdk --version=10.0.100 -y
             refreshenv
-      - run:
-          name: Restore NuGet packages
-          command: dotnet restore KeyMapper.sln
-      - run:
-          name: Build solution
-          command: dotnet build KeyMapper.sln --configuration Release --no-restore
-      - run:
-          name: Run MSTest
-          command: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --no-build --logger "trx"
+      - run: dotnet restore KeyMapper.sln
+      - run: dotnet build KeyMapper.sln --configuration Release --no-restore
+      - run: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --no-build --logger "trx"
       - store_test_results:
           path: KeyMapper.Tests/TestResults
 
