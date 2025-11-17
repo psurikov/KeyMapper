@@ -1,0 +1,28 @@
+version: 2.1
+
+jobs:
+  build_and_test:
+    executor:
+      name: win/default
+    steps:
+      - checkout
+      - run:
+          name: Install .NET SDK
+          command: |
+            choco install dotnet-sdk --version=8.0.100 -y
+            refreshenv
+      - run:
+          name: Restore NuGet packages
+          command: dotnet restore KeyMapper.sln
+      - run:
+          name: Build solution
+          command: dotnet build KeyMapper.sln --configuration Release --no-restore
+      - run:
+          name: Run tests
+          command: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --no-build --logger "trx"
+      - store_test_results:
+          path: KeyMapper.Tests/TestResults
+workflows:
+  build_test:
+    jobs:
+      - build_and_test
