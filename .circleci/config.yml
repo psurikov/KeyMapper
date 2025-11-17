@@ -1,7 +1,7 @@
 version: 2.1
 
 jobs:
-  build:
+  build_and_test:
     executor: windows/default
     steps:
       - checkout
