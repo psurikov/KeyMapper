@@ -2,14 +2,14 @@ version: 2.1
 
 jobs:
   build_and_test:
-    executor:
-      name: win/default
+    machine:
+      image: windows-server-2022-vs2022:stable
     steps:
       - checkout
       - run:
-          name: Install .NET SDK
+          name: Install .NET 10 SDK
           command: |
-            choco install dotnet-sdk --version=8.0.100 -y
+            choco install dotnet-sdk --version=10.0.100 -y
             refreshenv
       - run:
           name: Restore NuGet packages
@@ -18,11 +18,13 @@ jobs:
           name: Build solution
           command: dotnet build KeyMapper.sln --configuration Release --no-restore
       - run:
-          name: Run tests
+          name: Run MSTest
           command: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --no-build --logger "trx"
       - store_test_results:
           path: KeyMapper.Tests/TestResults
+
 workflows:
-  build_test:
+  version: 2
+  build_and_test_workflow:
     jobs:
       - build_and_test
