@@ -15,7 +15,7 @@ jobs:
             refreshenv
       - run: dotnet restore KeyMapper.sln
       - run: dotnet build KeyMapper.sln --configuration Release --no-restore
-      - run: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --no-build --logger "trx"
+      - run: dotnet test KeyMapper.Tests/KeyMapper.Tests.csproj --configuration Release --no-build --logger "trx"
       - store_test_results:
           path: KeyMapper.Tests/TestResults
 
